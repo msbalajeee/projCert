@@ -1,0 +1,18 @@
+---
+  - hosts: worker
+    become: yes
+    tasks:
+      - name: configure puppet platform repo
+        get_url:
+          url: https://yum.puppet.com/puppet6-release-el-8.noarch.rpm
+          dest: /tmp/puppet6-release-el-8.noarch.rpm
+
+      - name: install platform repo
+        yum:
+          name: /tmp/puppet6-release-el-8.noarch.rpm
+          state: present
+
+      - name: install puppet agent
+        yum:
+          name: puppet-agent
+          state: present
